@@ -47,6 +47,7 @@ bool cmp(const Task&x,const Task& y){
 static int num_tasks;//要打印的任务的个数
 static int index_of_negative_task;//priority为-1的task在task_array_ptr数组中的下标
 static LL end_time_of_negative_task;//priority为-1的task结束任务的时间
+static LL max_priority;//输入数据中最大优先级
 static shared_ptr<Task> task_array_ptr;//存储所有task的数组指针
 static shared_ptr<LL> ans_ptr; //存储每个task结束任务的时间的数组指针
 static set<LL> st; //存放优先级，去重
@@ -60,8 +61,8 @@ int main(int argc,char*argv[]){
     return 0;
 }
 //计算该该优先级下所有task的结束时间
-LL processPriority(LL priority){
-    task_array_ptr.get()[index_of_negative_task].priority = priority;
+LL processPriority(LL p){
+    task_array_ptr.get()[index_of_negative_task].priority = p;
     int task_id = task_array_ptr.get()[index_of_negative_task].task_id;
     int processed_task = 0;
     LL current_time = 0;
@@ -109,7 +110,7 @@ LL processPriority(LL priority){
 }
 void binarySearch(){
     //先找到缺失优先级的那个task的优先级的范围，然后二分查找
-    LL l=1,r=1e9,mid;
+    LL l=1,r=max_priority+1,mid;
     while(st.find(l)!=st.end())
         ++l;
     while(st.find(r)!=st.end())
@@ -117,7 +118,7 @@ void binarySearch(){
     while(l<=r){
         mid = (l+r)>>1;
         while(st.find(mid)!=st.end())
-            ++mid;
+            --mid;
         LL t = processPriority(mid); 
         if(t==end_time_of_negative_task)
             break;
@@ -139,13 +140,14 @@ void processInput(){
             scanf("%lld %lld %lld",&(task_array_ptr.get()[i].cur_time),&(task_array_ptr.get()[i].volume),&(task_array_ptr.get()[i].priority));
             task_array_ptr.get()[i].task_id = i;
             st.insert(task_array_ptr.get()[i].priority);
+            max_priority = (max_priority>(task_array_ptr.get()[i].priority))?max_priority:(task_array_ptr.get()[i].priority);
         }
         scanf("%lld",&end_time_of_negative_task);
       }
 }
 void processOutput(){
      freopen("/home/haoson/workspace/github-project/algorithm/algorithm_problems/half_interval/output/printer_output.txt","w",stdout);
-    printf("%lld\n",task_array_ptr.get()[index_of_negative_task].priority);
+    printf("%lld \n",task_array_ptr.get()[index_of_negative_task].priority);
      for(int i=0;i!=num_tasks;++i){
         printf("%lld ",ans_ptr.get()[i]);
      }
@@ -154,6 +156,7 @@ void processOutput(){
 void init(){
     task_array_ptr = shared_ptr<Task>(new Task[num_tasks],[](Task *p){delete []p;});
     ans_ptr = shared_ptr<LL>(new LL[num_tasks],[](LL* p){delete[] p;});
+    max_priority=0;
     st.clear();
 }
 void preProcess(){
