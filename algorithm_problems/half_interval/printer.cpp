@@ -133,7 +133,7 @@ void binarySearch(){
     }
 }
 void processInput(){
-     freopen("/home/haoson/workspace/github-project/algorithm/algorithm_problems/half_interval/input/printer_input.txt","r",stdin);
+     freopen("/home/haoson/workspace/github-project/algorithm/algorithm_problems/input/printer_input.txt","r",stdin);
     if(scanf("%d",&num_tasks)!=EOF){
         init();
         for(int i=0;i!=num_tasks;++i){
@@ -146,7 +146,7 @@ void processInput(){
       }
 }
 void processOutput(){
-     freopen("/home/haoson/workspace/github-project/algorithm/algorithm_problems/half_interval/output/printer_output.txt","w",stdout);
+     freopen("/home/haoson/workspace/github-project/algorithm/algorithm_problems/output/printer_output.txt","w",stdout);
     printf("%lld \n",task_array_ptr.get()[index_of_negative_task].priority);
      for(int i=0;i!=num_tasks;++i){
         printf("%lld ",ans_ptr.get()[i]);
