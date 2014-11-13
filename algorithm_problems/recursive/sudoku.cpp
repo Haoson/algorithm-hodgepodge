@@ -10,11 +10,15 @@
 #include<iostream>
 #include<cstdio>
 #include<string>
+#include<vector>
+#include<set>
 using namespace std;
 #define DEBUG
 
 const int BOARD_NUM = 81;//9*9个格子
+const int NEIGHBORS = 20;//每个格子的邻居，同行、同列、同一个block
 static int board[BOARD_NUM];//数独
+static int neighbors[BOARD_NUM][NEIGHBORS];//每一个格子的邻居,做缓存
 static int space_num;//空格数目
 static int spaces[BOARD_NUM];//内容为空格下标
 static int arities[BOARD_NUM];//格子的“自由度”，arities[x]表示x这个格子目前的候选数字的个数，选待填格子时应选arity最小的格子
@@ -32,7 +36,34 @@ int main(int argc,char *argv[]){
 }
 
 void preProcess(){
-    
+    int index =0,temp = 0 ;
+    set<int> index_set;
+    for(int i=0;i!=BOARD_NUM;++i){
+        //处理同一行的邻居
+        for(int j=(i/9 * 9);j!=(i/9 * 9 + 9);++j){
+            if(j!=i)
+                neighbors[i][index++] = board[j];
+            index_set.insert(j);
+        }
+        //处理同一列的邻居
+        for(int j=i%9;j!=(BOARD_NUM+i%9);j+=9){
+            if(j!=i)
+                neighbors[i][index++] = board[j];
+            index_set.insert(j);
+        }
+        //处理同一个block里面的；邻居
+        for(int j=0;j!=3;++j){
+            for(int k=0;k!=3;++k){
+                temp = j*9+k+(i/27*27+(i%9));
+                if(index_set.insert(temp).second){
+                    neighbors[i][index++] = board[temp];
+                }
+            }
+        }    
+    }
+    for(int i=0;i!=space_num;++i){
+        arities[spaces[i]]
+    }    
 }
 
 void processInput(){
