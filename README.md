@@ -34,13 +34,16 @@
 ####recursive 
     1. rectangular-cut problem
     2. sudoku problem
-    3. pair_problem
+    3. pair problem
+    4. tictactoe problem
 ####search 
     1. pushing box problem
 ####graphs
     1. fedor and essay problem
 ####dp 
-    //to do 
+    1. missile silos problem
+    2. fibonacci problem
+    
 
 ###algorithm_implementation
 Some basic sort algorithm
