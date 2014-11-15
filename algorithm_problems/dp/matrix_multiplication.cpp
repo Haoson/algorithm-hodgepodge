@@ -14,7 +14,7 @@
 #include<limits>
 using namespace std;
 
-#define DEBUG
+//#define DEBUG
 
 typedef long long LL;
 struct Matrix{
@@ -33,8 +33,19 @@ void print(size_t i,size_t j);
 
 int main(int argc,char*argv[]){
     processInput();
-    matrixMulti();
     processOutput();
+    while(cin>>matrix_num&&matrix_num){
+        matrixs.clear();
+        dp.clear();
+        path.clear();
+        matrixs.assign(matrix_num+1,Matrix());
+        for(size_t i=1;i!=matrix_num+1;++i){
+            cin>>(matrixs[i].row)>>(matrixs[i].col);
+        }
+        matrixMulti();
+        print(1,matrix_num);
+        cout<<endl;
+    }
 }
 void matrixMulti(){
     dp.assign(matrix_num+1,vector<LL>(matrix_num+1,INF));
@@ -48,7 +59,8 @@ void matrixMulti(){
                 res = dp[i][k-1]+dp[k][j]+static_cast<LL>(matrixs[i].row*matrixs[k].row*matrixs[j].col);  
                 if(res<dp[i][j]){
                     dp[i][j] = res;
-                    path[i][j] = k;
+                    if(j-i>1)
+                        path[i][j] = k;
                 }
             }
         }
@@ -56,38 +68,34 @@ void matrixMulti(){
 }
 void processInput(){
     freopen("/home/haoson/workspace/github-project/algorithm-hodgepodge/algorithm_problems/input/matrix_multiplication_input.txt","r",stdin);
-    while(cin>>matrix_num&&matrix_num){
-        matrixs.clear();
-        dp.clear();
-        path.clear();
-        matrixs.assign(matrix_num,Matrix());
-        for(size_t i=0;i!=matrix_num;++i){
-            cin>>(matrixs[i].row)>>(matrixs[i].col);
-        }
-    }
 }
 void processOutput(){
 #ifndef DEBUG
     freopen("/home/haoson/workspace/github-project/algorithm-hodgepodge/algorithm_problems/output/matrix_multiplication_output.txt","w",stdout);
-    print(1,matrix_num);
-#else
-    print(1,matrix_num);
 #endif
 }
 void print(size_t i,size_t j) {
-    if(j==i)
+    if(j==i){
         cout<<"A"<<i;
-    if(j-i==1) 
+        return;
+    }
+    if(j-i==1){ 
         cout<<"A"<<i<<" * "<<"A"<<j;
+        return;
+    }
     else{
         size_t flag = path[i][j];
         cout<<"(";
-        print(i,flag-1);     
-        cout<<" * ";
-        if(flag!=0)
+        if(flag==j)
             cout<<"(";
-        print(path[i][j],j);     
-        if(flag!=0)
+        print(i,flag-1);     
+        if(flag==j)
+            cout<<")";
+        cout<<" * ";
+        if(flag!=0&&flag!=j)
+            cout<<"(";
+        print(flag,j);     
+        if(flag!=0&&flag!=j)
             cout<<")";
         cout<<")";
     }
