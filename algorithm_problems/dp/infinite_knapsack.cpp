@@ -66,7 +66,7 @@ void processInput(){
 }
 void processOutput(size_t max_value){
 #ifndef DEBUG
-    freopen("/home/haoson/workspace/github-project/algorithm-hodgepodge/algorithm_problems/output/infinite_knapsack.txt","w",stdout);
+    freopen("/home/haoson/workspace/github-project/algorithm-hodgepodge/algorithm_problems/output/infinite_knapsack_output.txt","w",stdout);
     cout<<max_value<<endl;
 #else
     for(auto it=items.begin();it!=items.end();++it){
