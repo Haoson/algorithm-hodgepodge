@@ -38,11 +38,18 @@
     4. tictactoe problem
 ####search 
     1. pushing box problem
+    2. graph coloring problem
 ####graphs
     1. fedor and essay problem
 ####dp 
     1. missile silos problem
     2. fibonacci problem
+    3. 0/1 knapsack problem
+    4. infinite knapsack problem
+    5. minimize the difference problem
+    6. flower arrangement problem
+    7. barcode problem
+    8. matrix multiplication problem
     
 
 ###algorithm_implementation
