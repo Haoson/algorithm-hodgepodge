@@ -39,8 +39,11 @@
 ####search 
     1. pushing box problem
     2. graph coloring problem
+    3. qtree2 problem(LCA)
+    4. p-cousin problem(RMQ)
 ####graphs
     1. fedor and essay problem
+    2. popular cows roblem(kosataju algorithm)
 ####dp 
     1. missile silos problem
     2. fibonacci problem
@@ -50,6 +53,7 @@
     6. flower arrangement problem
     7. barcode problem
     8. matrix multiplication problem
+    9. edit distance problem
     
 
 ###algorithm_implementation
