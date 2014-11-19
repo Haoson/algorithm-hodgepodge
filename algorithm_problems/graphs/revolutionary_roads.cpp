@@ -27,7 +27,6 @@ static vector<vector<size_t> > adj_matrix;//图的邻接矩阵,adj_matrix[i][j]=
 static vector<bool> visited;
 static set<size_t> rev_roads;//能变成revolutionary roads的道路的编号
 static size_t max_w=0;//最大强连通分量的节点个数
-static size_t rev_road_id;//revolutionary road 编号
 
 void processInput();//处理输入
 void processOutput();//处理输出
